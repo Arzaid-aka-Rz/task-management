@@ -5,6 +5,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./utils/db.js";
 import userRoute from "./routes/user.route.js"
+import taskRoute from "./routes/task.route.js"
 dotenv.config();
 
 
@@ -32,6 +33,7 @@ app.get("/", (req, res) => {
 
 //Api's
 app.use("/api/v1/user",userRoute);
+app.use("/api/v1/task",taskRoute);
 
 
 // Listening to the server
