@@ -1,10 +1,10 @@
+import MainLayout from "./MainLayout";
+
 
 const Home = () => {
   return (
-    <div className="text-7xl">
-      Home
-    </div>
-  )
-}
+    <MainLayout/>
+  );
+};
 
-export default Home
+export default Home;
