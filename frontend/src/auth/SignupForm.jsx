@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { setLoading } from "@/redux/authSlice";
+import { setIsLoggedIn, setLoading } from "@/redux/authSlice";
 import { userSignupSchema } from "@/schema/userSchema";
 import { USER_API_END_POINT } from "@/utils/constant";
 import axios from "axios";
@@ -59,8 +59,9 @@ const SignupForm = () => {
       );
 
       if (response.data.success) {
-        toast.success(response.data.message);
+        dispatch(setIsLoggedIn(true));
         navigate("/login");
+        toast.success(response.data.message);
       }
     } catch (error) {
       const errorMessage = error.response?.data?.message || "Something went wrong";

@@ -11,19 +11,29 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 function App() {
-  const { user } = useSelector((store) => store.auth);
 
+
+  
   const ProtectedRoutes = ({ children }) => {
-    return user ? children : <Navigate to="/login" replace />;
+    const { isLoggedIn } = useSelector((store) => store.auth);
+    if (!isLoggedIn) {
+      return <Navigate to="/login" replace />;
+    }
+    return children
   };
-
+  
   ProtectedRoutes.propTypes = {
     children: PropTypes.node.isRequired,
   };
 
   const AuthenticatedUser = ({ children }) => {
-    return !user ? children : <Navigate to="/" replace />;
+    const { isLoggedIn,user } = useSelector((store) => store.auth);
+    if (isLoggedIn && user) {
+      return <Navigate to="/" replace />;
+    }
+    return children;
   };
+  
 
   AuthenticatedUser.propTypes = {
     children: PropTypes.node.isRequired,

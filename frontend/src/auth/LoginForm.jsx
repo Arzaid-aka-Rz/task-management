@@ -9,7 +9,7 @@ import { USER_API_END_POINT } from "@/utils/constant";
 import { userLoginSchema } from "@/schema/userSchema";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading, setUser } from "@/redux/authSlice";
+import { setIsLoggedIn, setLoading, setUser } from "@/redux/authSlice";
 
 const LoginForm = () => {
   
@@ -60,6 +60,7 @@ const LoginForm = () => {
 
       if (response.data.success) {
         dispatch(setUser(response.data.user));
+        dispatch(setIsLoggedIn(true));
         toast.success(response.data.message);
         navigate("/");
       }

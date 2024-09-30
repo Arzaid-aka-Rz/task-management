@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button } from "./ui/button";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/utils/constant";
-import { setUser } from "@/redux/authSlice";
+import { setIsLoggedIn, setUser } from "@/redux/authSlice";
 import { toast } from "sonner";
 
 const Profile = () => {
@@ -24,6 +24,8 @@ const Profile = () => {
 
       if (response.data.success) {
         dispatch(setUser(null));
+        dispatch(setIsLoggedIn(false));
+
         toast.success(response.data.message);
       }
     } catch (error) {
