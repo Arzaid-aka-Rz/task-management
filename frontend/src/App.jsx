@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Signup from "./auth/Signup";
 import Login from "./auth/Login";
@@ -6,13 +7,36 @@ import Layout from "./layout/Layout";
 import Completed from "./components/Completed";
 import Pending from "./components/Pending";
 import Overdue from "./components/Overdue";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 function App() {
+  const { user } = useSelector((store) => store.auth);
+
+  const ProtectedRoutes = ({ children }) => {
+    return user ? children : <Navigate to="/login" replace />;
+  };
+
+  ProtectedRoutes.propTypes = {
+    children: PropTypes.node.isRequired,
+  };
+
+  const AuthenticatedUser = ({ children }) => {
+    return !user ? children : <Navigate to="/" replace />;
+  };
+
+  AuthenticatedUser.propTypes = {
+    children: PropTypes.node.isRequired,
+  };
 
   const appRouter = createBrowserRouter([
     {
       path: "/",
-      element: <Layout />,
+      element: (
+        <ProtectedRoutes>
+          <Layout />
+        </ProtectedRoutes>
+      ),
       children: [
         {
           path: "/",
@@ -35,11 +59,19 @@ function App() {
 
     {
       path: "/signup",
-      element: <Signup />,
+      element: (
+        <AuthenticatedUser>
+          <Signup />
+        </AuthenticatedUser>
+      ),
     },
     {
       path: "/login",
-      element: <Login />,
+      element: (
+        <AuthenticatedUser>
+          <Login />
+        </AuthenticatedUser>
+      ),
     },
   ]);
 

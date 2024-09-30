@@ -8,9 +8,13 @@ import axios from "axios";
 import { USER_API_END_POINT } from "@/utils/constant";
 import { userLoginSchema } from "@/schema/userSchema";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading, setUser } from "@/redux/authSlice";
 
 const LoginForm = () => {
-  const loading = false;
+  
+  const dispatch = useDispatch();
+  const {loading} = useSelector(store=>store.auth);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -42,6 +46,7 @@ const LoginForm = () => {
 
     // Login API implementation
     try {
+      dispatch(setLoading(true));
       const response = await axios.post(
         `${USER_API_END_POINT}/login`,
         formData,
@@ -54,6 +59,7 @@ const LoginForm = () => {
       );
 
       if (response.data.success) {
+        dispatch(setUser(response.data.user));
         toast.success(response.data.message);
         navigate("/");
       }
@@ -62,6 +68,9 @@ const LoginForm = () => {
       error.response?.data?.message || "Something went wrong";
       toast.error(errorMessage);
       console.log(error);
+    }
+    finally{
+      dispatch(setLoading(false));
     }
   };
 

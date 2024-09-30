@@ -1,16 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { setLoading } from "@/redux/authSlice";
 import { userSignupSchema } from "@/schema/userSchema";
 import { USER_API_END_POINT } from "@/utils/constant";
 import axios from "axios";
 import { Loader2, LockKeyhole, Mail, User } from "lucide-react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const SignupForm = () => {
-  const loading = false;
+  const dispatch = useDispatch();
+  const {loading} = useSelector(store=>store.auth);
   const [formData, setFormData] = useState({
     fullname: "",
     email: "",
@@ -43,6 +46,7 @@ const SignupForm = () => {
 
     //signup api implementation
     try {
+      dispatch(setLoading(true));
       const response = await axios.post(
         `${USER_API_END_POINT}/signup`,
         formData,
@@ -62,6 +66,9 @@ const SignupForm = () => {
       const errorMessage = error.response?.data?.message || "Something went wrong";
       toast.error(errorMessage);
       console.log(error);
+    }
+    finally{
+      dispatch(setLoading(false));
     }
   };
 
