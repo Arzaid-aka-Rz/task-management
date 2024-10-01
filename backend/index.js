@@ -26,12 +26,12 @@ app.use(cors(corsOptions));
 
 
 // Testing the server
-app.get("/", (req, res) => {
-    return res.status(200).json({
-      success: true,
-      message: "Server is up and running ...",
-    });
-  });
+// app.get("/", (req, res) => {
+//     return res.status(200).json({
+//       success: true,
+//       message: "Server is up and running ...",
+//     });
+//   });
 
 
 //Api's
