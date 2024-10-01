@@ -8,7 +8,10 @@ import { toast } from "sonner";
 
 const Profile = () => {
   const { user } = useSelector((store) => store.auth);
+  const { tasks } = useSelector((store) => store.task);
   const dispatch = useDispatch();
+  const completedTasks = tasks.filter((task) => task.completed);
+  const activeTasks = tasks.filter((task) => !task.completed);
 
   const logoutHandler = async (e) => {
     e.preventDefault();
@@ -67,7 +70,7 @@ const Profile = () => {
             <p className="pl-4 relative flex gap-2">
               <span className="absolute h-[70%] w-[0.2rem] left-[1px] top-1/2 translate-y-[-41%] bg-purple-500 rounded-[5px]"></span>
               <span className="font-medium text-4xl text-[#333]">
-                {/* {tasks.length} */} 10
+                {tasks.length} 
               </span>
             </p>
           </div>
@@ -77,7 +80,7 @@ const Profile = () => {
             <p className="pl-4 relative flex gap-2">
               <span className="absolute h-[70%] w-[0.2rem] left-[1px] top-1/2 translate-y-[-41%] bg-[#3AAFAE] rounded-[5px]"></span>
               <span className="font-medium text-4xl text-[#333]">
-                {/* {activeTasks.length} */} 5
+                {activeTasks.length} 
               </span>
             </p>
           </div>
@@ -87,7 +90,7 @@ const Profile = () => {
             <p className="pl-4 relative flex gap-2">
               <span className="absolute h-[70%] w-[0.2rem] left-[1px] top-1/2 translate-y-[-41%] bg-orange-400 rounded-[5px]"></span>
               <span className="font-medium text-4xl text-[#333]">
-                {/* {activeTasks.length} */}4
+                {activeTasks?.length}
               </span>
             </p>
           </div>
@@ -97,7 +100,7 @@ const Profile = () => {
             <p className="pl-4 relative flex gap-2">
               <span className="absolute h-[70%] w-[0.2rem] left-[1px] top-1/2 translate-y-[-41%] bg-green-400 rounded-[5px]"></span>
               <span className="font-medium text-4xl text-[#333]">
-                {/* {completedTasks.length} */}7
+                {completedTasks?.length}
               </span>
             </p>
           </div>

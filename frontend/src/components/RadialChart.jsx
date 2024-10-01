@@ -12,6 +12,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { useSelector } from "react-redux";
 
 const chartConfig = {
   desktop: {
@@ -25,15 +26,21 @@ const chartConfig = {
 };
 
 const RadialChart = () => {
+
+  const {tasks} = useSelector(store=>store.task);
+
   // Placeholder data
   const tasksTotal = 20;
-  const completedTasks = 12;
-  const activeTasks = 8;
+
+  const completedTasks = tasks.filter((task)=>task.completed);;
+  const activeTasks = tasks.filter((task) => !task.completed);
+
+ 
 
   const chartData = [
     {
-      pending: activeTasks,
-      completed: completedTasks,
+      pending: activeTasks.length,
+      completed: completedTasks.length,
     },
   ];
 
