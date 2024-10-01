@@ -2,14 +2,20 @@ import { Task } from "../models/task.model.js";
 
 export const createTask = async (req, res) => {
   try {
-    const { title, description, dueDate, priority, status,completed  } = req.body;
+    const { title, description, dueDate, priority, status, completed } = req.body;
 
     if (!title || title.trim() === "") {
-      return res.status(400).json({success: false, message: "Title is required!" });
+      return res.status(400).json({ success: false, message: "Title is required!" });
     }
 
     if (!description || description.trim() === "") {
-      return res.status(400).json({ success: false,message: "Description is required!" });
+      return res.status(400).json({ success: false, message: "Description is required!" });
+    }
+
+    // Check if the task with the same title already exists for the user
+    const existingTask = await Task.findOne({ title, user: req.id });
+    if (existingTask) {
+      return res.status(400).json({ success: false, message: "Task with this title already exists!" });
     }
 
     const task = new Task({
@@ -18,18 +24,18 @@ export const createTask = async (req, res) => {
       dueDate,
       priority,
       status,
-      completed: completed !== undefined ? completed : false,  
+      completed: completed !== undefined ? completed : false,
       user: req.id,
     });
 
     await task.save();
-
     res.status(201).json({ success: true, task });
   } catch (error) {
     console.log("Error in createTask: ", error.message);
     res.status(500).json({ success: false, message: "Server Error: " + error.message });
   }
 };
+
 
 export const getTasks = async (req, res) => {
   try {
