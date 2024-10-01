@@ -2,7 +2,7 @@ import { Task } from "../models/task.model.js";
 
 export const createTask = async (req, res) => {
   try {
-    const { title, description, dueDate, priority, status } = req.body;
+    const { title, description, dueDate, priority, status,completed  } = req.body;
 
     if (!title || title.trim() === "") {
       return res.status(400).json({success: false, message: "Title is required!" });
@@ -18,6 +18,7 @@ export const createTask = async (req, res) => {
       dueDate,
       priority,
       status,
+      completed: completed !== undefined ? completed : false,  
       user: req.id,
     });
 

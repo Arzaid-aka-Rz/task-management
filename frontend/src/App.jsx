@@ -11,8 +11,6 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 function App() {
-
-
   
   const ProtectedRoutes = ({ children }) => {
     const { isLoggedIn } = useSelector((store) => store.auth);

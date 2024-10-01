@@ -17,8 +17,8 @@ const Profile = () => {
         `${USER_API_END_POINT}/logout`,{
           headers: {
             "Content-Type": "application/json",
-            withCredentials: true,
           },
+          withCredentials: true,
         }
       );
 

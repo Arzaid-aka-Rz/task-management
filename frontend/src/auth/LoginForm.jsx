@@ -53,14 +53,16 @@ const LoginForm = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            withCredentials: true,
           },
+          withCredentials: true,
         }
       );
 
       if (response.data.success) {
+     
         dispatch(setUser(response.data.user));
         dispatch(setIsLoggedIn(true));
+        
         toast.success(response.data.message);
         navigate("/");
       }
