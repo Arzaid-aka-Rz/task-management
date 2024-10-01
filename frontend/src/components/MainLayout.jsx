@@ -57,7 +57,7 @@ const MainLayout = () => {
   }, []);
 
   return (
-    <div className="main-layout z-index flex-1 bg-[#EDEDED] border-2 border-white rounded-[1.5rem] overflow-auto  h-[40rem]">
+    <div className="main-layout flex-1 bg-[#EDEDED] border-2 border-white rounded-[1.5rem] overflow-auto  h-[40rem]">
       <main className="m-6 h-full">
         <div className="flex justify-between">
           <h1 className="text-2xl font-bold">All Tasks</h1>
