@@ -37,7 +37,7 @@ const TaskItem = ({ task }) => {
         }
       );
 
-      console.log(response);
+
       dispatch(setTask(response.data.task));
 
     } catch (error) {

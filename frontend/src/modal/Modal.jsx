@@ -41,7 +41,6 @@ const Modal = () => {
         }
       );
 
-    //   console.log("Task created", response.data.task);
       dispatch(addTask(response.data.task));
       toast.success("Task created successfully");
 
@@ -70,7 +69,6 @@ const Modal = () => {
         }
       );
 
-      console.log(response);
       // update the task in the tasks array
       const newTasks = tasks.map((tsk) => {
         return tsk._id === response.data.task._id ? response.data.task : tsk;

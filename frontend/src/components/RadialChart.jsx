@@ -29,12 +29,13 @@ const RadialChart = () => {
 
   const {tasks} = useSelector(store=>store.task);
 
-  // Placeholder data
-  const tasksTotal = 20;
+  
 
   const completedTasks = tasks.filter((task)=>task.completed);;
   const activeTasks = tasks.filter((task) => !task.completed);
 
+  // Placeholder data
+  const tasksTotal = tasks.length;
  
 
   const chartData = [

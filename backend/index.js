@@ -6,10 +6,13 @@ import dotenv from "dotenv";
 import connectDB from "./utils/db.js";
 import userRoute from "./routes/user.route.js"
 import taskRoute from "./routes/task.route.js"
+import path from "path";
 dotenv.config();
 
 
 const PORT = process.env.PORT || 3000;
+
+const DIRNAME = path.resolve();
 
 //middlewares
 app.use(express.json());
@@ -34,6 +37,11 @@ app.get("/", (req, res) => {
 //Api's
 app.use("/api/v1/user",userRoute);
 app.use("/api/v1/task",taskRoute);
+
+app.use(express.static(path.join(DIRNAME,"/frontend/dist")));
+app.use("*",(_,res)=>{
+  res.sendFile(path.resolve(DIRNAME,"frontend","dist","index.html"))
+});
 
 
 // Listening to the server
